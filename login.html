@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Signup | Sweet Crumbs by Lakss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+<style>
+  html, body { height: 100%; }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+  .site-header { flex-shrink: 0; }
+  .auth-section {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: var(--cream);
+    overflow-y: auto;
+  }
+  .auth-card {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 36px;
+  }
+  .auth-tabs {
+    display: flex;
+    background: var(--peach-light);
+    border-radius: 30px;
+    padding: 4px;
+    margin-bottom: 28px;
+  }
+  .auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 26px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--maroon);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .auth-tab.active { background: var(--maroon); color: #fff; }
+  .auth-title {
+    font-size: 24px;
+    color: var(--maroon);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .auth-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 26px;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--peach-light);
+    background: var(--cream);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .form-group input:focus { border-color: var(--maroon); }
+  .form-row-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    margin-bottom: 20px;
+  }
+  .form-row-inline label { display: flex; align-items: center; gap: 6px; color: var(--text-muted); cursor: pointer; }
+  .form-row-inline a { color: var(--maroon); font-weight: 600; }
+  .auth-submit { width: 100%; padding: 14px 0; font-size: 15px; }
+  .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  .auth-divider::before, .auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--peach-light);
+  }
+  .auth-social-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 11px 0;
+    border: 1px solid var(--peach-light);
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-dark);
+    background: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .auth-social-btn:hover { background: var(--cream); }
+  .signup-only { display: none; }
+  .auth-msg {
+    display: none;
+    text-align: center;
+    color: var(--maroon);
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 14px;
+  }
+  .password-wrap { position: relative; }
+  .password-wrap input { padding-right: 42px; }
+  .toggle-pass {
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-muted);
+    display: flex;
+  }
+  .toggle-pass:hover { color: var(--maroon); }
+
+  .logged-in-view { display: none; text-align: center; }
+  .logged-in-view .avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--peach-light); color: var(--maroon);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 700; margin: 0 auto 16px;
+  }
+  .logged-in-view h2 { color: var(--maroon); font-size: 20px; margin-bottom: 6px; }
+  .logged-in-view p { color: var(--text-muted); font-size: 13px; margin-bottom: 24px; }
+
+  .site-footer-mini {
+    text-align: center;
+    padding: 14px 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--cream);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/logo-sweetcrumbs.png" alt="Sweet Crumbs by Lakss" class="logo-icon">
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="index.html#menu">Menu</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#promise">Reservation</a>
+      <a href="index.html#footer">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="icon-btn" id="cartBtn" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3f2b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      </a>
+      <a href="login.html" class="login-link" style="color:var(--maroon); font-weight:600;">Login/Signup</a>
+      <button class="btn btn-primary" onclick="location.href='index.html#menu'">Order Now</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="auth-section">
+  <div class="auth-card">
+    <div class="auth-tabs" id="authTabs">
+      <div class="auth-tab active" data-tab="login">Login</div>
+      <div class="auth-tab" data-tab="signup">Sign Up</div>
+    </div>
+
+    <div id="formView">
+      <h1 class="auth-title" id="authTitle">Welcome back</h1>
+      <p class="auth-subtitle" id="authSubtitle">Login to order your favourite sweet treats</p>
+
+      <form id="authForm">
+        <div class="form-group signup-only">
+          <label>Full Name</label>
+          <input type="text" id="fullName" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="emailInput" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="password-wrap">
+            <input type="password" id="passwordInput" placeholder="••••••••" required>
+            <span class="toggle-pass" data-target="passwordInput">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
+          </div>
+        </div>
+        <div class="form-group signup-only">
+          <label>Confirm Password</label>
+          <div class="password-wrap">
+            <input type="password" id="confirmPasswordInput" placeholder="••••••••">
+            <span class="toggle-pass" data-target="confirmPasswordInput">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row-inline">
+          <label><input type="checkbox" style="width:auto;"> Remember me</label>
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary auth-submit" id="authSubmit">Login</button>
+      </form>
+
+      <div class="auth-divider">or continue with</div>
+      <button class="auth-social-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.52 12.27c0-.85-.08-1.67-.22-2.45H12v4.63h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.88c2.27-2.09 3.57-5.17 3.57-8.81z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.92l-3.88-3c-1.08.72-2.46 1.15-4.07 1.15-3.13 0-5.78-2.11-6.73-4.96H1.27v3.12A11.99 11.99 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.27a7.2 7.2 0 0 1 0-4.54V6.61H1.27a12 12 0 0 0 0 10.78z"/><path fill="#EA4335" d="M12 4.77c1.77 0 3.35.61 4.6 1.8l3.44-3.44C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.69 1.27 6.61l4 3.12C6.22 6.88 8.87 4.77 12 4.77z"/></svg>
+        Continue with Google
+      </button>
+    </div>
+
+    <div class="logged-in-view" id="loggedInView">
+      <div class="avatar" id="avatarInitial">S</div>
+      <h2 id="welcomeName">Welcome back!</h2>
+      <p id="welcomeEmail">you@example.com</p>
+      <button class="btn btn-primary" style="width:100%; padding:13px 0;" onclick="location.href='index.html'">Continue Shopping</button>
+      <button class="btn btn-outline-light" style="width:100%; padding:13px 0; margin-top:10px; color:var(--maroon); border-color:var(--maroon);" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+</section>
+
+<div class="site-footer-mini">
+  © 2026 Sweet Crumbs by Lakss. All rights reserved.
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.auth-tab');
+  const title = document.getElementById('authTitle');
+  const subtitle = document.getElementById('authSubtitle');
+  const submitBtn = document.getElementById('authSubmit');
+  const signupFields = document.querySelectorAll('.signup-only');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      if (tab.dataset.tab === 'signup') {
+        title.textContent = 'Create your account';
+        subtitle.textContent = 'Sign up to start ordering sweet treats';
+        submitBtn.textContent = 'Sign Up';
+        signupFields.forEach(f => f.style.display = 'block');
+      } else {
+        title.textContent = 'Welcome back';
+        subtitle.textContent = 'Login to order your favourite sweet treats';
+        submitBtn.textContent = 'Login';
+        signupFields.forEach(f => f.style.display = 'none');
+      }
+    });
+  });
+
+  document.getElementById('authForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value || 'you@example.com';
+    const name = document.getElementById('fullName').value;
+    const displayName = name || email.split('@')[0];
+    document.getElementById('welcomeName').textContent = `Welcome, ${displayName}!`;
+    document.getElementById('welcomeEmail').textContent = email;
+    document.getElementById('avatarInitial').textContent = displayName.charAt(0).toUpperCase();
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('authTabs').style.display = 'none';
+    document.getElementById('loggedInView').style.display = 'block';
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    document.getElementById('loggedInView').style.display = 'none';
+    document.getElementById('authTabs').style.display = 'flex';
+    document.getElementById('formView').style.display = 'block';
+    document.getElementById('authForm').reset();
+  });
+
+  document.querySelectorAll('.toggle-pass').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const input = document.getElementById(toggle.dataset.target);
+      input.type = input.type === 'password' ? 'text' : 'password';
+    });
+  });
+
+  const hamburger = document.getElementById('hamburger');
+  const mainNav = document.getElementById('mainNav');
+  hamburger.addEventListener('click', () => mainNav.classList.toggle('open'));
+</script>
+</body>
+</html>

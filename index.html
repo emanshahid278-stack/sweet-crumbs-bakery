@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Crumbs by Lakss | Bakery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#home" class="logo">
+      <img src="assets/logo-sweetcrumbs.png" alt="Sweet Crumbs by Lakss" class="logo-icon">
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#home" class="active">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#promise">Reservation</a>
+      <a href="#footer">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="cart.html" class="icon-btn" id="cartBtn" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3f2b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <a href="login.html" class="login-link">Login/Signup</a>
+      <button class="btn btn-primary">Order Now</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+  <div class="search-bar">
+    <div class="container">
+      <input type="text" placeholder="Search for sweet treats...">
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <h1>Taste the<br>Royalty</h1>
+      <p>Experience royal dining with our signature dishes, baked fresh every single day with love and the finest ingredients.</p>
+      <div class="hero-btns">
+        <button class="btn btn-outline-light">Book a Table</button>
+        <button class="btn btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Explore Menu</button>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="assets/hero-cupcake.jpg" alt="Signature pink cupcake">
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORIES ===== -->
+<section class="categories">
+  <div class="container">
+    <h2 class="section-title">❤️ Our Sweet Treats</h2>
+    <div class="category-grid" id="categoryGrid">
+      <button class="category-card" data-filter="all">
+        <svg class="cat-icon" viewBox="0 0 48 48" width="28" height="28"><rect x="10" y="24" width="28" height="16" rx="3" fill="#e3c08a" stroke="#1a1a1a" stroke-width="2"/><path d="M10 30 h28" stroke="#1a1a1a" stroke-width="2"/><rect x="22" y="14" width="4" height="10" fill="#e3c08a" stroke="#1a1a1a" stroke-width="2"/><path d="M24 8 c2 2 2 4 0 6 c-2-2-2-4 0-6" fill="#5b9bd5" stroke="#1a1a1a" stroke-width="1.5"/></svg>
+        <span>Cakes</span>
+      </button>
+      <button class="category-card" data-filter="pastry">
+        <svg class="cat-icon" viewBox="0 0 48 48" width="28" height="28"><path d="M10 30 C10 18 20 10 32 12 C28 14 26 18 28 22 C32 20 36 22 37 26 C38 30 34 34 30 33 C26 32 24 36 20 36 C14 36 10 34 10 30 Z" fill="#f2a900" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span>Pastry</span>
+      </button>
+      <button class="category-card" data-filter="donuts">
+        <svg class="cat-icon" viewBox="0 0 48 48" width="28" height="28"><circle cx="24" cy="24" r="14" fill="#c17a3f" stroke="#1a1a1a" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#fdece4" stroke="#1a1a1a" stroke-width="2"/><circle cx="18" cy="16" r="1.6" fill="#e74c3c"/><circle cx="30" cy="15" r="1.6" fill="#3498db"/><circle cx="34" cy="22" r="1.6" fill="#2ecc71"/><circle cx="16" cy="28" r="1.6" fill="#f1c40f"/></svg>
+        <span>Donuts</span>
+      </button>
+      <button class="category-card" data-filter="icecream">
+        <svg class="cat-icon" viewBox="0 0 48 48" width="28" height="28"><path d="M16 22 C16 14 32 14 32 22 C32 16 24 12 24 12 C24 12 16 16 16 22 Z" fill="#fff8ec" stroke="#1a1a1a" stroke-width="2"/><path d="M17 22 L24 40 L31 22 Z" fill="#e8b923" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span>Ice Cream</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MENU ===== -->
+<section class="menu" id="menu">
+  <div class="container menu-inner">
+    <div class="menu-heading">
+      <span class="eyebrow">Explore Our Menu</span>
+      <h2>What will you wish for?</h2>
+      <p>Selling the best products across the country, made fresh daily by our master bakers.</p>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- ===== OUR PROMISE ===== -->
+<section class="promise" id="promise">
+  <div class="container promise-inner">
+    <div class="promise-copy">
+      <span class="eyebrow">Our Promise</span>
+      <h2>Freshly baked with love and delivered on time</h2>
+
+      <div class="promise-features">
+        <div class="feature">
+          <span class="feature-icon"><img src="assets/icon-delivery.png" alt="Fast Delivery"></span>
+          <span>Fast Delivery</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon"><img src="assets/icon-quality.png" alt="Good Quality"></span>
+          <span>Good Quality</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon"><img src="assets/icon-cake.png" alt="Fresh Daily"></span>
+          <span>Fresh Daily</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon"><img src="assets/icon-love.png" alt="Made with Love"></span>
+          <span>Made with Love</span>
+        </div>
+      </div>
+
+      <div class="discount-box">
+        <p class="discount-label">Get 20% Off</p>
+        <p class="discount-text">Order today and enjoy fresh desserts delivered to your door.</p>
+        <button class="btn btn-primary">Unlock Now</button>
+      </div>
+    </div>
+
+    <div class="promise-gallery">
+      <img src="assets/promise-muffin.jpg" alt="Chocolate chunk muffin">
+      <img src="assets/promise-cupcake-raspberry.jpg" alt="Raspberry cupcake">
+      <img src="assets/promise-donuts-plate.jpg" alt="Sugar dusted donuts">
+      <img src="assets/promise-cherry-tart.jpg" alt="Iced cherry bun">
+      <img src="assets/promise-raspberry-tartlets.jpg" alt="Raspberry tartlets">
+      <img src="assets/promise-choc-chip-cookie.jpg" alt="Chocolate chip cookie">
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" id="footer">
+  <div class="footer-top">
+    <div class="container footer-top-inner">
+      <span>Freshly Baked</span>
+      <span class="dot">•</span>
+      <span>Premium Quality</span>
+      <span class="dot">•</span>
+      <span>Fast Delivery</span>
+    </div>
+  </div>
+
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#home" class="logo">
+        <img src="assets/logo-sweetcrumbs.png" alt="Sweet Crumbs by Lakss" class="logo-icon">
+      </a>
+      <p>Sweet moments delivered every day.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Know Us</h4>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#blog">Blog</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#faq">FAQ</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#terms">Terms</a>
+    </div>
+
+    <div class="footer-newsletter">
+      <input type="email" class="newsletter-input" placeholder="Enter your email address">
+      <div class="subscribe-row">
+        <button class="btn btn-primary">Subscribe</button>
+        <div class="socials">
+          <a href="#" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.5.05-1.02.24-3.42-.72-2.9-1.16-4.74-4.12-4.88-4.31-.14-.19-1.17-1.56-1.17-2.97 0-1.41.74-2.1 1-2.39.26-.28.57-.35.76-.35h.55c.18 0 .42-.03.65.5.24.56.82 1.94.89 2.08.07.14.12.3.02.49-.09.19-.14.3-.28.46-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.92 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.86-1.06.18-.28.36-.23.6-.14.24.09 1.53.72 1.79.85.26.14.44.2.5.31.06.12.06.66-.18 1.34z"/></svg>
+          </a>
+          <a href="#" aria-label="Gmail">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.5 6.5l6.5 5 6.5-5v10.9a1.1 1.1 0 0 1-1.1 1.1H6.6a1.1 1.1 0 0 1-1.1-1.1z"/><path fill="#C5221F" d="M18.5 6.5L12 11.5l-6.5-5v-.4c0-.6.5-1.1 1.1-1.1h1.13L12 8.4l4.27-3.4H17.4c.6 0 1.1.5 1.1 1.1z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>© 2026 Sweet Crumbs by Lakss. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ===== CART DRAWER ===== -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button id="closeCart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="empty-cart">Your cart is empty.</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">$0.00</span>
+    </div>
+    <button class="btn btn-primary checkout-btn">Checkout</button>
+  </div>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<script src="products.js?v=3"></script>
+<script src="script.js?v=3"></script>
+</body>
+</html>

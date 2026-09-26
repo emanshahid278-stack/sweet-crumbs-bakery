@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart | Sweet Crumbs by Lakss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+<style>
+  .cart-page { padding: 50px 0 80px; background: var(--cream); min-height: 60vh; }
+  .cart-page-title { font-size: 30px; color: var(--maroon); margin-bottom: 30px; }
+  .cart-layout { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+  .cart-list { flex: 2; min-width: 320px; display: flex; flex-direction: column; gap: 16px; }
+  .cart-line {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .cart-line img { width: 84px; height: 84px; border-radius: 12px; object-fit: cover; flex-shrink: 0; }
+  .cart-line-info { flex: 1; }
+  .cart-line-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .cart-line-price { color: var(--maroon); font-weight: 700; font-size: 14px; }
+  .cart-line-qty { display: flex; align-items: center; gap: 10px; }
+  .cart-line-qty button {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--peach-light); color: var(--maroon); font-weight: 700;
+  }
+  .cart-line-remove { color: #c14; font-size: 12px; margin-left: 12px; }
+  .empty-state {
+    background: #fff; border-radius: 16px; box-shadow: var(--shadow);
+    padding: 50px 24px; text-align: center; color: var(--text-muted);
+  }
+  .empty-state a { color: var(--maroon); font-weight: 600; }
+
+  .order-summary {
+    flex: 1; min-width: 300px;
+    background: #fff; border-radius: 16px; box-shadow: var(--shadow);
+    padding: 26px;
+  }
+  .order-summary h3 { color: var(--maroon); font-size: 18px; margin-bottom: 18px; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 10px; color: var(--text-muted); }
+  .summary-row.total { color: var(--text-dark); font-weight: 700; font-size: 16px; border-top: 1px solid var(--peach-light); padding-top: 12px; margin-top: 6px; }
+  .checkout-form { margin-top: 22px; }
+  .checkout-form .form-group { margin-bottom: 14px; }
+  .checkout-form label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 5px; }
+  .checkout-form input, .checkout-form textarea {
+    width: 100%; padding: 10px 14px; border-radius: 10px;
+    border: 1px solid var(--peach-light); background: var(--cream);
+    font-size: 13px; font-family: inherit; outline: none;
+  }
+  .place-order-btn { width: 100%; margin-top: 8px; padding: 14px 0; }
+  .order-success {
+    display: none; text-align: center; color: var(--maroon); font-weight: 600;
+    font-size: 13px; margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/logo-sweetcrumbs.png" alt="Sweet Crumbs by Lakss" class="logo-icon">
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="index.html#menu">Menu</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#promise">Reservation</a>
+      <a href="index.html#footer">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="icon-btn" id="cartBtn" aria-label="Cart" style="color:var(--maroon);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b1e2e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      </a>
+      <a href="login.html" class="login-link">Login/Signup</a>
+      <button class="btn btn-primary" onclick="location.href='index.html#menu'">Order Now</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="cart-page">
+  <div class="container">
+    <h1 class="cart-page-title">Your Cart</h1>
+    <div class="cart-layout">
+      <div class="cart-list" id="cartList"></div>
+
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">$0.00</span></div>
+        <div class="summary-row"><span>Delivery Fee</span><span id="sumDelivery">$0.00</span></div>
+        <div class="summary-row total"><span>Total</span><span id="sumTotal">$0.00</span></div>
+
+        <form class="checkout-form" id="checkoutForm">
+          <button type="submit" class="btn btn-primary place-order-btn" id="placeOrderBtn">Proceed to Checkout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="footer">
+  <div class="footer-top">
+    <div class="container footer-top-inner">
+      <span>Freshly Baked</span>
+      <span class="dot">•</span>
+      <span>Premium Quality</span>
+      <span class="dot">•</span>
+      <span>Fast Delivery</span>
+    </div>
+  </div>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <img src="assets/logo-sweetcrumbs.png" alt="Sweet Crumbs by Lakss" class="logo-icon">
+      </a>
+      <p>Sweet moments delivered every day.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Know Us</h4>
+      <a href="index.html#about">About</a>
+      <a href="index.html#footer">Contact</a>
+      <a href="#blog">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#faq">FAQ</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#terms">Terms</a>
+    </div>
+    <div class="footer-newsletter">
+      <input type="email" class="newsletter-input" placeholder="Enter your email address">
+      <div class="subscribe-row">
+        <button class="btn btn-primary">Subscribe</button>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.5.05-1.02.24-3.42-.72-2.9-1.16-4.74-4.12-4.88-4.31-.14-.19-1.17-1.56-1.17-2.97 0-1.41.74-2.1 1-2.39.26-.28.57-.35.76-.35h.55c.18 0 .42-.03.65.5.24.56.82 1.94.89 2.08.07.14.12.3.02.49-.09.19-.14.3-.28.46-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.92 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.86-1.06.18-.28.36-.23.6-.14.24.09 1.53.72 1.79.85.26.14.44.2.5.31.06.12.06.66-.18 1.34z"/></svg></a>
+          <a href="#" aria-label="Gmail"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.5 6.5l6.5 5 6.5-5v10.9a1.1 1.1 0 0 1-1.1 1.1H6.6a1.1 1.1 0 0 1-1.1-1.1z"/><path fill="#C5221F" d="M18.5 6.5L12 11.5l-6.5-5v-.4c0-.6.5-1.1 1.1-1.1h1.13L12 8.4l4.27-3.4H17.4c.6 0 1.1.5 1.1 1.1z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2026 Sweet Crumbs by Lakss. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="products.js?v=3"></script>
+<script>
+  let cart = cartFromQuery();
+  const DELIVERY_FEE = cart.length ? 2.5 : 0;
+
+  function syncUrl() {
+    const url = new URL(window.location);
+    url.search = cartToQuery(cart).replace('?', '');
+    window.history.replaceState({}, '', url);
+    document.getElementById('cartBtn').href = 'cart.html' + cartToQuery(cart);
+  }
+
+  function renderCartPage() {
+    const listEl = document.getElementById('cartList');
+
+    if (cart.length === 0) {
+      listEl.innerHTML = '<div class="empty-state">Your cart is empty. <a href="index.html#menu">Browse the menu →</a></div>';
+    } else {
+      listEl.innerHTML = cart.map(item => `
+        <div class="cart-line">
+          <img src="${item.img}" alt="${item.name}">
+          <div class="cart-line-info">
+            <div class="cart-line-name">${item.name}</div>
+            <div class="cart-line-price">$${(item.price * item.qty).toFixed(2)}</div>
+          </div>
+          <div class="cart-line-qty">
+            <button data-action="dec" data-id="${item.id}">−</button>
+            <span>${item.qty}</span>
+            <button data-action="inc" data-id="${item.id}">+</button>
+          </div>
+          <span class="cart-line-remove" data-id="${item.id}">Remove</span>
+        </div>
+      `).join('');
+
+      listEl.querySelectorAll('button[data-action]').forEach(btn => {
+        const id = Number(btn.dataset.id);
+        const delta = btn.dataset.action === 'inc' ? 1 : -1;
+        btn.addEventListener('click', () => changeQty(id, delta));
+      });
+      listEl.querySelectorAll('.cart-line-remove').forEach(el => {
+        el.addEventListener('click', () => {
+          cart = cart.filter(i => i.id !== Number(el.dataset.id));
+          update();
+        });
+      });
+    }
+
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const delivery = cart.length ? 2.5 : 0;
+    document.getElementById('sumSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('sumDelivery').textContent = `$${delivery.toFixed(2)}`;
+    document.getElementById('sumTotal').textContent = `$${(subtotal + delivery).toFixed(2)}`;
+    document.getElementById('placeOrderBtn').disabled = cart.length === 0;
+  }
+
+  function changeQty(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+    update();
+  }
+
+  function update() {
+    renderCartPage();
+    syncUrl();
+  }
+
+  document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!cart.length) return;
+    window.location.href = 'checkout.html' + cartToQuery(cart);
+  });
+
+  update();
+
+  const hamburger = document.getElementById('hamburger');
+  const mainNav = document.getElementById('mainNav');
+  hamburger.addEventListener('click', () => mainNav.classList.toggle('open'));
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | Sweet Crumbs by Lakss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+<style>
+  .checkout-page { padding: 50px 0 60px; background: var(--cream); min-height: 65vh; }
+  .checkout-page-title { font-size: 30px; color: var(--maroon); margin-bottom: 30px; }
+  .checkout-layout { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+  .checkout-form-col { flex: 2; min-width: 320px; }
+  .checkout-block {
+    background: #fff; border-radius: 16px; box-shadow: var(--shadow);
+    padding: 24px; margin-bottom: 20px;
+  }
+  .checkout-block h3 { color: var(--maroon); font-size: 16px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 5px; }
+  .form-row-2 { display: flex; gap: 12px; }
+  .form-row-2 .form-group { flex: 1; }
+  .checkout-form-col input, .checkout-form-col textarea {
+    width: 100%; padding: 11px 14px; border-radius: 10px;
+    border: 1px solid var(--peach-light); background: var(--cream);
+    font-size: 13px; font-family: inherit; outline: none;
+  }
+  .pay-options { display: flex; flex-direction: column; gap: 10px; }
+  .pay-option {
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--peach-light); border-radius: 12px;
+    padding: 12px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .pay-option input { width: auto; }
+  .pay-option.selected { border-color: var(--maroon); background: var(--peach-light); }
+
+  .order-summary {
+    flex: 1; min-width: 300px;
+    background: #fff; border-radius: 16px; box-shadow: var(--shadow);
+    padding: 26px; position: sticky; top: 20px;
+  }
+  .order-summary h3 { color: var(--maroon); font-size: 18px; margin-bottom: 16px; }
+  .summary-item { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; color: var(--text-dark); }
+  .summary-item span:last-child { color: var(--maroon); font-weight: 600; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 14px; margin: 10px 0; color: var(--text-muted); }
+  .summary-row.total { color: var(--text-dark); font-weight: 700; font-size: 16px; border-top: 1px solid var(--peach-light); padding-top: 12px; margin-top: 6px; }
+  .place-order-btn { width: 100%; margin-top: 16px; padding: 14px 0; }
+
+  .success-screen { display: none; text-align: center; padding: 60px 24px; }
+  .success-screen .check-circle {
+    width: 76px; height: 76px; border-radius: 50%;
+    background: var(--peach-light); color: var(--maroon);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; font-size: 34px;
+  }
+  .success-screen h2 { color: var(--maroon); font-size: 24px; margin-bottom: 8px; }
+  .success-screen p { color: var(--text-muted); font-size: 14px; margin-bottom: 6px; }
+  .success-screen .order-id { font-weight: 700; color: var(--text-dark); }
+
+  .site-footer-mini {
+    text-align: center; padding: 20px 24px; font-size: 12px;
+    color: var(--text-muted); background: var(--cream);
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/logo-sweetcrumbs.png" alt="Sweet Crumbs by Lakss" class="logo-icon">
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="index.html#menu">Menu</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#promise">Reservation</a>
+      <a href="index.html#footer">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="icon-btn" id="cartBtn" aria-label="Cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3f2b28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      </a>
+      <a href="login.html" class="login-link">Login/Signup</a>
+      <button class="btn btn-primary" onclick="location.href='index.html#menu'">Order Now</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="checkout-page" id="checkoutSection">
+  <div class="container">
+    <h1 class="checkout-page-title">Checkout</h1>
+
+    <div class="checkout-layout" id="checkoutLayout">
+      <div class="checkout-form-col">
+        <form id="checkoutForm">
+          <div class="checkout-block">
+            <h3>Delivery Details</h3>
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Your name">
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="03XX-XXXXXXX">
+              </div>
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" placeholder="City">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Delivery Address</label>
+              <textarea rows="2" placeholder="House #, street, area"></textarea>
+            </div>
+          </div>
+
+          <div class="checkout-block">
+            <h3>Payment Method</h3>
+            <div class="pay-options" id="payOptions">
+              <label class="pay-option selected">
+                <input type="radio" name="pay" value="cod" checked> Cash on Delivery
+              </label>
+              <label class="pay-option">
+                <input type="radio" name="pay" value="card"> Credit / Debit Card
+              </label>
+              <label class="pay-option">
+                <input type="radio" name="pay" value="wallet"> Mobile Wallet (JazzCash / EasyPaisa)
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary place-order-btn" id="placeOrderBtn">Place Order</button>
+        </form>
+      </div>
+
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div id="summaryItems"></div>
+        <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">$0.00</span></div>
+        <div class="summary-row"><span>Delivery Fee</span><span id="sumDelivery">$0.00</span></div>
+        <div class="summary-row total"><span>Total</span><span id="sumTotal">$0.00</span></div>
+      </div>
+    </div>
+
+    <div class="success-screen" id="successScreen">
+      <div class="check-circle">✓</div>
+      <h2>Order Placed!</h2>
+      <p>Thank you — your sweet treats are on the way.</p>
+      <p>Order ID: <span class="order-id" id="orderId"></span></p>
+      <button class="btn btn-primary" style="margin-top:20px;" onclick="location.href='index.html'">Back to Home</button>
+    </div>
+  </div>
+</section>
+
+<div class="site-footer-mini">
+  © 2026 Sweet Crumbs by Lakss. All rights reserved.
+</div>
+
+<script src="products.js?v=3"></script>
+<script>
+  const cart = cartFromQuery();
+
+  if (cart.length === 0) {
+    document.getElementById('checkoutLayout').innerHTML =
+      '<p style="padding:40px;">Your cart is empty. <a href="index.html#menu" style="color:var(--maroon); font-weight:600;">Browse the menu →</a></p>';
+  }
+
+  const summaryItemsEl = document.getElementById('summaryItems');
+  summaryItemsEl.innerHTML = cart.map(item => `
+    <div class="summary-item">
+      <span>${item.name} × ${item.qty}</span>
+      <span>$${(item.price * item.qty).toFixed(2)}</span>
+    </div>
+  `).join('');
+
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const delivery = cart.length ? 2.5 : 0;
+  document.getElementById('sumSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById('sumDelivery').textContent = `$${delivery.toFixed(2)}`;
+  document.getElementById('sumTotal').textContent = `$${(subtotal + delivery).toFixed(2)}`;
+
+  document.querySelectorAll('.pay-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      opt.querySelector('input').checked = true;
+    });
+  });
+
+  document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!cart.length) return;
+    const orderId = 'SC' + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('orderId').textContent = orderId;
+    document.getElementById('checkoutLayout').style.display = 'none';
+    document.querySelector('.checkout-page-title').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+    document.getElementById('cartBtn').href = 'cart.html';
+    document.getElementById('cartCount') && (document.getElementById('cartCount').textContent = '0');
+  });
+
+  const hamburger = document.getElementById('hamburger');
+  const mainNav = document.getElementById('mainNav');
+  hamburger.addEventListener('click', () => mainNav.classList.toggle('open'));
+</script>
+</body>
+</html>
